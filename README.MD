@@ -1,13 +1,12 @@
 # OpenAI Integration exercise (Ecomart)
 
-Using a project from Alura as a starting point, this is just an exercise on how to connect with OpenAI APIs.
+Using a project from Alura as a starting point, this is just an exercise on how to connect with OpenAI APIs and communicate, wihtout having any other purposes such as being a full production-ready application.
 
 While the original project was created with theokanning's open-ai Java, this version was developed since the beginning with the official OpenAI Java library.
 
 Other extra changes were made, such as having both sync and async clients.
 
-
-## How to RUN
+## How to Run
 
  - Just provide the environment variables:
    - OpenAI Library mandatory environment variables:
