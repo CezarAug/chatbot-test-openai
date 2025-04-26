@@ -13,7 +13,7 @@ public class ChatController {
 
     private static final String PAGINA_CHAT = "chat";
 
-    private ChatbotService chatbotService;
+    private final ChatbotService chatbotService;
 
     public ChatController(ChatbotService chatbotService) {
         this.chatbotService = chatbotService;
@@ -25,14 +25,12 @@ public class ChatController {
         //TODO: Check an issue where history is loaded, message is not properly formatted
         model.addAttribute("historico", messages);
 
-
         return PAGINA_CHAT;
     }
 
     @PostMapping
     @ResponseBody
     public SseEmitter responderPergunta(@RequestBody PerguntaDto dto) {
-
         SseEmitter emitter = new SseEmitter(0L); // No timeout
 
         new Thread(() -> {
@@ -48,7 +46,6 @@ public class ChatController {
 
     @GetMapping("limpar")
     public String limparConversa() {
-
         chatbotService.wipeChatHistory();
         return "redirect:/"+PAGINA_CHAT;
     }

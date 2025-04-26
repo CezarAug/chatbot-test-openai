@@ -3,6 +3,7 @@ package br.com.alura.ecomart.chatbot.infra.openai.client;
 import br.com.alura.ecomart.chatbot.domain.service.CalculadorDeFrete;
 import com.openai.client.OpenAIClientAsync;
 import com.openai.client.okhttp.OpenAIOkHttpClientAsync;
+import com.openai.models.beta.threads.ThreadDeleteParams;
 import com.openai.models.beta.threads.messages.Message;
 import com.openai.models.beta.threads.messages.MessageCreateParams;
 import com.openai.models.beta.threads.messages.MessageListParams;
@@ -16,8 +17,10 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -85,12 +88,39 @@ public class AssistantAsyncClient extends AssistantClient {
 
   @Override
   public List<String> loadChatHistory() {
-    return List.of();
+    // This is far from ideal since it is throwing away the async aspect, but it is just to have a proof of performing
+    // the same from the sync client, but with the Async client.
+
+    List<String> messages = new ArrayList<>();
+
+    if (this.threadId != null && !threadId.isBlank()) {
+      try {
+        return client.beta().threads().messages().list(
+            MessageListParams.builder().threadId(threadId).build()
+        ).thenApply(
+            messageListPageAsync -> messageListPageAsync.data()
+                .stream()
+                .sorted(Comparator.comparingLong(Message::createdAt))
+                .flatMap(item -> item.content().stream())
+                .flatMap(message -> message.text().stream())
+                .map(textBlock -> textBlock.text().value())
+                .toList()
+        ).toCompletableFuture().get();
+      } catch (InterruptedException | ExecutionException e) {
+        log.error("Failed to fetch chat history: {}", e.getMessage());
+        return messages;
+      }
+    }
+
+    return messages;
   }
 
   @Override
   public void deleteThread() {
-
+    if (threadId != null && !threadId.isBlank()) {
+      client.beta().threads().delete(ThreadDeleteParams.builder().threadId(threadId).build());
+      threadId = null;
+    }
   }
 
   @NotNull
@@ -166,9 +196,9 @@ public class AssistantAsyncClient extends AssistantClient {
     }
 
     return client.beta().threads().runs().submitToolOutputs(RunSubmitToolOutputsParams.builder()
-            .threadId(threadId)
-            .runId(finalRun.id())
-            .toolOutputs(outputs)
-            .build());
+        .threadId(threadId)
+        .runId(finalRun.id())
+        .toolOutputs(outputs)
+        .build());
   }
 }
