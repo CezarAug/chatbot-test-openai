@@ -1,4 +1,4 @@
-package br.com.alura.ecomart.chatbot.infra.openai;
+package br.com.alura.ecomart.chatbot.infra.openai.client;
 
 import br.com.alura.ecomart.chatbot.domain.DadosCalculoFrete;
 import br.com.alura.ecomart.chatbot.domain.UF;
@@ -10,7 +10,7 @@ import com.openai.models.beta.threads.runs.RequiredActionFunctionToolCall;
 
 import static com.openai.core.ObjectMappers.jsonMapper;
 
-public abstract class AssistantClient {
+public abstract class AssistantClient implements AssistantClientInterface {
 
   private final CalculadorDeFrete calculator;
 

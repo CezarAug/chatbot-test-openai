@@ -1,8 +1,9 @@
-package br.com.alura.ecomart.chatbot.infra.openai;
+package br.com.alura.ecomart.chatbot.infra.openai.client;
 
 import br.com.alura.ecomart.chatbot.domain.DadosCalculoFrete;
 import br.com.alura.ecomart.chatbot.domain.UF;
 import br.com.alura.ecomart.chatbot.domain.service.CalculadorDeFrete;
+import br.com.alura.ecomart.chatbot.infra.openai.DadosRequisicaoChatCompletion;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;

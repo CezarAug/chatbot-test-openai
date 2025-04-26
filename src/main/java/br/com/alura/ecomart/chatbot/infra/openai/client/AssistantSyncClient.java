@@ -1,4 +1,4 @@
-package br.com.alura.ecomart.chatbot.infra.openai;
+package br.com.alura.ecomart.chatbot.infra.openai.client;
 
 import br.com.alura.ecomart.chatbot.domain.service.CalculadorDeFrete;
 import com.openai.client.OpenAIClient;
@@ -25,7 +25,7 @@ import java.util.List;
  * Calling an assistant with the Sync OpenAIClient
  */
 @Component
-public class AssistantSyncClient extends AssistantClient{
+public class AssistantSyncClient extends AssistantClient {
 
   private static final Logger log = LoggerFactory.getLogger(AssistantSyncClient.class);
 
@@ -45,7 +45,7 @@ public class AssistantSyncClient extends AssistantClient{
 
 
 
-  public void streamAssistantResponse(String userPrompt, SseEmitter emitter) {
+  public void getAssistantResponse(String userPrompt, SseEmitter emitter) {
 
     prepareThreadID();
 

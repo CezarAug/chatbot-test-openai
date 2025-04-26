@@ -5,12 +5,7 @@ import br.com.alura.ecomart.chatbot.web.dto.PerguntaDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.thymeleaf.engine.TemplateManager;
-
-import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping({"/", "chat"})
@@ -34,8 +29,8 @@ public class ChatController {
         return PAGINA_CHAT;
     }
 
-//    @PostMapping
-//    @ResponseBody
+    @PostMapping
+    @ResponseBody
     public SseEmitter responderPergunta(@RequestBody PerguntaDto dto) {
 
         SseEmitter emitter = new SseEmitter(0L); // No timeout
@@ -43,23 +38,6 @@ public class ChatController {
         new Thread(() -> {
             try {
                 chatbotService.answerQuestion(dto.pergunta(), emitter);
-            } catch (Exception e) {
-                emitter.completeWithError(e);
-            }
-        }).start();
-
-        return emitter;
-    }
-
-    @PostMapping
-    @ResponseBody
-    public SseEmitter responderPerguntaAsync(@RequestBody PerguntaDto dto) {
-
-        SseEmitter emitter = new SseEmitter(0L); // No timeout
-
-        new Thread(() -> {
-            try {
-                chatbotService.answerQuestionAsync(dto.pergunta(), emitter);
             } catch (Exception e) {
                 emitter.completeWithError(e);
             }

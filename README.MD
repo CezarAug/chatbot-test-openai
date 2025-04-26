@@ -8,13 +8,21 @@ Other extra changes were made, such as having both sync and async clients.
 
 ## How to Run
 
- - Just provide the environment variables:
+ - Provide the environment variables:
    - OpenAI Library mandatory environment variables:
      - OPENAI_PROJECT_ID
      - OPENAI_API_KEY
      - OPENAI_ORG_ID
    - Create your assistant with OpenAI's playground and provide the id:
      - ASSISTANT_ID
+
+
+ - In the property files, choose between Sync or Async client.
+### Current issues and ideas to improve
+
+ - Messages on browser are not breaking lines properly
+ - When an answer uses the instruction documents as source, the reference marks needs to be removed (The number between brackets)
+ - Add mechanisms to avoid abusing the API (e.g.: Now allow new inputs while the current one is being processed, limit the total amount of messages)
 
 ### Base project
  - Repository: https://github.com/alura-cursos/3571-openai-java-2/

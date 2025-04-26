@@ -1,4 +1,4 @@
-package br.com.alura.ecomart.chatbot.infra.openai;
+package br.com.alura.ecomart.chatbot.infra.openai.client;
 
 import br.com.alura.ecomart.chatbot.domain.service.CalculadorDeFrete;
 import com.openai.client.OpenAIClientAsync;
@@ -44,7 +44,7 @@ public class AssistantAsyncClient extends AssistantClient {
   }
 
 
-  public void getAsyncAssistantResponse(String userPrompt, SseEmitter emitter) {
+  public void getAssistantResponse(String userPrompt, SseEmitter emitter) {
     // 1. Create a new message and threadId
     createInitialMessage(userPrompt).thenCompose(message -> {
       log.info("Message: {}", message);
@@ -81,6 +81,16 @@ public class AssistantAsyncClient extends AssistantClient {
       emitter.completeWithError(ex);
       return null;
     });
+  }
+
+  @Override
+  public List<String> loadChatHistory() {
+    return List.of();
+  }
+
+  @Override
+  public void deleteThread() {
+
   }
 
   @NotNull
