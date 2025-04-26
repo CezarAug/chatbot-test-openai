@@ -18,6 +18,19 @@ Other extra changes were made, such as having both sync and async clients.
 
 
  - In the property files, choose between Sync or Async client.
+
+### Assistant files and functions
+
+Check [here](https://github.com/CezarAug/chatbot-test-openai/blob/f831328f4006811b4ce7eebd88405046118cafe6/src/main/resources/ecomart) for both instructions and functions created in the OpenAi dashboard.
+
+### Screenshot
+
+Once you have everything up and running, it should look like this:
+
+![Screenshot](screenshots/chat.png)
+
+
+
 ### Current issues and ideas to improve
 
  - Messages on browser are not breaking lines properly
