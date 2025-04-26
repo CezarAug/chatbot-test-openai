@@ -37,6 +37,7 @@ Once you have everything up and running, it should look like this:
  - When an answer uses the instruction documents as source, the reference marks needs to be removed (The number between brackets)
  - Add mechanisms to avoid abusing the API (e.g.: Now allow new inputs while the current one is being processed, limit the total amount of messages)
  - ThreadId needs better handling (Maybe attach it to the user session? cache it?)
+ - Original code is in Brazilian Portuguese, while new functions and changes were switched to English.
 
 ### Base project
  - Repository: https://github.com/alura-cursos/3571-openai-java-2/
