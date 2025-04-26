@@ -48,14 +48,7 @@ public class AssistantSyncClient extends AssistantClient {
   public void getAssistantResponse(String userPrompt, SseEmitter emitter) {
 
     prepareThreadID();
-
-
-    client.beta().threads().messages()
-        .create(MessageCreateParams.builder()
-            .threadId(threadId)
-            .role(MessageCreateParams.Role.USER)
-            .content(userPrompt)
-            .build());
+    createMessage(userPrompt);
 
 
     try (StreamResponse<AssistantStreamEvent> stream = client.beta().threads().runs()
@@ -96,6 +89,15 @@ public class AssistantSyncClient extends AssistantClient {
 
     log.info("Complete!");
     emitter.complete();
+  }
+
+  private void createMessage(String userPrompt) {
+    client.beta().threads().messages()
+        .create(MessageCreateParams.builder()
+            .threadId(threadId)
+            .role(MessageCreateParams.Role.USER)
+            .content(userPrompt)
+            .build());
   }
 
 

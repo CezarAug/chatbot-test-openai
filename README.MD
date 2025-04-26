@@ -23,6 +23,7 @@ Other extra changes were made, such as having both sync and async clients.
  - Messages on browser are not breaking lines properly
  - When an answer uses the instruction documents as source, the reference marks needs to be removed (The number between brackets)
  - Add mechanisms to avoid abusing the API (e.g.: Now allow new inputs while the current one is being processed, limit the total amount of messages)
+ - ThreadId needs better handling (Maybe attach it to the user session? cache it?)
 
 ### Base project
  - Repository: https://github.com/alura-cursos/3571-openai-java-2/
